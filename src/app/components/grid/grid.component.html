@@ -1,0 +1,91 @@
+<div class="grid-container">
+  <div class="actions-top">
+    <button class="btn-add" (click)="addRow()">+ Add New</button>
+  </div>
+
+  <table class="data-grid">
+    <thead>
+      <tr>
+        <th><input type="checkbox" (change)="toggleSelectAll($event)"></th>
+        <th *ngFor="let col of columns">{{ col.column_name }}</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of paginatedRows" [class.selected]="selectedRows.has(row.id)">
+        <td><input type="checkbox" (change)="toggleRow(row.id, $event)" [checked]="selectedRows.has(row.id)"></td>
+
+        <td *ngFor="let col of columns">
+          <ng-container [ngSwitch]="col.type">
+            <ng-container *ngSwitchCase="'name'">
+              <div class="name-cell">
+                <img src="https://i.pravatar.cc/30" alt="avatar" />
+                <div>
+                  <div class="full-name">{{ row.name.first_name }} {{ row.name.last_name }}</div>
+                  <div class="handle">{{ row.name.handle }}</div>
+                </div>
+              </div>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'status'">
+              <span class="status" [ngClass]="{'customer': row.status === 'Customer', 'churned': row.status === 'Churned'}">
+                {{ row.status }}
+              </span>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'text'">
+              {{ row.role }}
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'progress'">
+              <div class="progress-bar">
+                <div class="progress" [style.width.%]="row.license_used">
+                  {{ row.license_used }}%
+                </div>
+              </div>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'tags'">
+              <div class="teams-cell">
+                <span *ngFor="let team of row.teams"
+                      class="team-tag"
+                      [style.color]="team.text_color"
+                      [style.backgroundColor]="team.background_color">
+                  {{ team.value }}
+                </span>
+              </div>
+            </ng-container>
+
+          </ng-container>
+        </td>
+
+        <td class="actions">
+          <button class="icon-btn" title="Edit" (click)="editRow(row)">✏️</button>
+          <button class="icon-btn" title="Delete" (click)="confirmDelete(row)">🗑️</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="pagination-container">
+    <div class="pagination-left">
+      <button class="pagination-btn" [disabled]="currentPage === 1" (click)="goToPage(currentPage - 1)">
+        ← Previous
+      </button>
+    </div>
+  
+    <div class="pagination-center">
+      <ng-container *ngFor="let page of [].constructor(totalPages); let i = index">
+        <button class="page-btn" [class.active]="currentPage === (i + 1)" (click)="goToPage(i + 1)">
+          {{ i + 1 }}
+        </button>
+      </ng-container>
+    </div>
+  
+    <div class="pagination-right">
+      <button class="pagination-btn" [disabled]="currentPage === totalPages" (click)="goToPage(currentPage + 1)">
+        Next →
+      </button>
+    </div>
+  </div>
+</div>

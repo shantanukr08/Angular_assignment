@@ -1,0 +1,32 @@
+<div class="dashboard-header">
+  <div class="welcome-text">
+    <h1>Welcome back, Olivia</h1>
+  </div>
+  <div class="header-buttons">
+    <button class="btn-secondary">Customize</button>
+    <button class="btn-secondary">Export</button>
+  </div>
+</div>
+
+<div class="dashboard-cards">
+  <div class="card vendor-breakdown">
+    <h3>Vendor breakdown</h3>
+    <p class="subtext">Keep track of vendors and their security ratings.</p>
+    <app-bar-chart></app-bar-chart>
+    <button class="btn-link">View full report</button>
+  </div>
+
+  <div class="card vendors-monitored">
+    <h3>Vendors monitored</h3>
+    <p class="subtext">You're using 80% of available spots.</p>
+    <app-radial-progress></app-radial-progress>
+    <div class="small-text">
+      You've almost reached your limit. Upgrade plan to monitor more vendors.
+    </div>
+    <button class="btn-upgrade">Upgrade Plan</button>
+  </div>
+</div>
+
+<div class="main-grid">
+  <app-team-members-grid [columns]="columns" [rows]="rows"></app-team-members-grid>
+</div>

@@ -1,0 +1,26 @@
+.summary-card {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  border-radius: 12px;
+  color: #333;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+  .icon {
+    font-size: 24px;
+    margin-right: 16px;
+  }
+
+  .details {
+    .title {
+      font-size: 14px;
+      color: #777;
+      margin-bottom: 4px;
+    }
+
+    .value {
+      font-size: 18px;
+      font-weight: bold;
+    }
+  }
+}
